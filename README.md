@@ -1,1 +1,1 @@
-# config files for nvim, tmux, fish and bash
+# config files for nvim, tmux, fish
