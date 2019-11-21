@@ -1,12 +1,9 @@
-" be iMproved, required filetype off
-" required
-set nocompatible
-" set the runtime path to include Vundle and initialize
+""""""""""""""""""""""
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
 
-" let Vundle manage Vundle, required
+call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
+
 Plugin 'valloric/youcompleteme'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
@@ -15,39 +12,47 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'majutsushi/tagbar'
 Plugin 'tpope/vim-fugitive'
-" Plugin 'tfnico/vim-gradle'
+" Theme
 Plugin 'morhetz/gruvbox'
 "Plugin 'ervandew/supertab'
+"
+" Language
 Plugin 'nvie/vim-flake8'
-Plugin 'elzr/vim-json'
+" Plugin 'davidhalter/jedi-vim'
+"
 " Plugin 'pangloss/vim-javascript'
+" Plugin 'kchmck/vim-coffee-script'
+Plugin 'elzr/vim-json'
 " Plugin 'leafgarland/typescript-vim'
-Plugin 'fatih/vim-go'
-" auto pair parenthensis
+"
 Plugin 'jiangmiao/auto-pairs'
-" show git diff inline
 " Plugin 'airblade/vim-gitgutter'
+"
 " show more details about the git
 Plugin 'gregsexton/gitv'
 " Plugin 'mhinz/vim-signify'
 " search in vim
 Plugin 'mileszs/ack.vim'
+"
 " snippet
 " Plugin 'SirVer/ultisnips'
 Plugin 'shougo/neosnippet-snippets'
 Plugin 'shougo/neosnippet.vim'
-
+" Plugin 'fatih/vim-go'
 " Plugin 'shougo/deoplete.nvim'
-Plugin 'nsf/gocode', {'rtp': 'vim/'}
-Plugin 'sebdah/vim-delve'
+" Plugin 'nsf/gocode', {'rtp': 'vim/'}
+" Plugin 'sebdah/vim-delve'
 " Plugin 'zchee/deoplete-go'
+" Plugin 'zchee/deoplete-jedi'
 
 Plugin 'w0rp/ale'
+
 " ,be ,bt ,bs ,bv
 Plugin 'jlanzarotta/bufexplorer'
 
-call vundle#end()            " required
-filetype plugin indent on    " required
+call vundle#end()
+
+filetype plugin indent on
 filetype plugin on
 syntax on
 
@@ -67,18 +72,18 @@ set autoindent
 set smartindent
 " use 4 as indent width for python
 autocmd FileType javascript setlocal expandtab shiftwidth=2 softtabstop=2
-autocmd FileType c,cpp setlocal expandtab shiftwidth=4 softtabstop=4
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
+
 " Search
 set hlsearch
 set incsearch
 set ruler
-set ignorecase
+" set ignorecase
 set smartcase
 " auto read file when file changes
 set autoread
 " set textwidth=100
-set colorcolumn=100
+set colorcolumn=80
 " set nowrap
 " set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 set listchars=tab:>-,trail:~,extends:>,precedes:<
@@ -220,9 +225,10 @@ let g:NERDTrimTrailingWhitespace = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " YouCompleteMe
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/youcompleteme/.ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf = 0
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/youcompleteme/third_party/ycmd/.ycm_extra_conf.py'
 let g:ycm_complete_in_comments = 1
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_max_diagnostics_to_display = 0
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 " Code navigation with Ctrl-] , use Ctrl-O to get back to previous location
@@ -246,7 +252,7 @@ map <C-m> :cprevious<CR>
 nnoremap <leader>a :cclose<CR>
 
 autocmd FileType go nmap <leader>b <Plug>(go-build)
-autocmd FileType go nmap <leader>r <Plug>(go-run) <C-w>l
+autocmd FileType go nmap <leader>r <Plug>(go-run)
 autocmd FileType go nmap <leader>t <Plug>(go-test)
 autocmd FileType go nmap <Leader>i <Plug>(go-info)
 autocmd FileType go ALEDisable
@@ -319,8 +325,10 @@ let g:ale_sign_warning = '⚠'
 let g:airline#extensions#ale#enabled = 1
 let g:ale_linters = {
 \    'go': ['gometalinter'],
-\    'python': ['flake8']
+\    'python': ['flake8'],
+\    'c': ['gcc'], 'cpp': ['clang']
 \}
+let g:ale_c_gcc_options="-Wall -O2"
 " let g:ale_sign_column_always = 1
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
@@ -354,14 +362,19 @@ let g:ale_set_quickfix = 1
 au FileType go nnoremap <expr> <leader>d match(bufname(bufnr('%')), '_test\.go$') != -1 ? ':DlvTest<CR>' : ':DlvDebug<CR>'
 au FileType python nnoremap <leader>d :VT ipdb %<CR>a
 
-function! ClipboardYank()
-  call system('xclip -i -selection clipboard', @@)
-endfunction
-function! ClipboardPaste()
-  let @@ = system('xclip -o -selection clipboard')
-endfunction
+" function! ClipboardYank()
+"   call system('xclip -i -selection clipboard', @@)
+" endfunction
+" function! ClipboardPaste()
+"   let @@ = system('xclip -o -selection clipboard')
+" endfunction
 
-vnoremap <silent> d d:call ClipboardYank()<cr>
-vnoremap <silent> y y:call ClipboardYank()<cr>
-nnoremap <silent> p :call ClipboardPaste()<cr>p
+" vnoremap <silent> y y:call ClipboardYank()<cr>
+" vnoremap <silent> d d:call ClipboardYank()<cr>
+" nnoremap <silent> p :call ClipboardPaste()<cr>p
 
+vnoremap <silent> y "+y
+vnoremap <silent> yy "+yy
+vnoremap <silent> d "+d
+vnoremap <silent> dd "+dd
+nnoremap <silent> p "+p"
