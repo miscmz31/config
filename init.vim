@@ -1,62 +1,59 @@
-""""""""""""""""""""""
+" required
+set nocompatible
+" set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
-
 call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
 
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
 Plugin 'valloric/youcompleteme'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'kien/ctrlp.vim'
+" Plugin 'kien/ctrlp.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'majutsushi/tagbar'
 Plugin 'tpope/vim-fugitive'
-" Theme
+Plugin 'tpope/vim-surround'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'Yggdroot/indentLine'
+Plugin 'Yggdroot/LeaderF'
+
 Plugin 'morhetz/gruvbox'
 "Plugin 'ervandew/supertab'
-"
-" Language
-Plugin 'nvie/vim-flake8'
-" Plugin 'davidhalter/jedi-vim'
-"
-" Plugin 'pangloss/vim-javascript'
-" Plugin 'kchmck/vim-coffee-script'
 Plugin 'elzr/vim-json'
+" Plugin 'pangloss/vim-javascript'
+" Plugin 'tfnico/vim-gradle'
 " Plugin 'leafgarland/typescript-vim'
-"
+
+" auto pair parenthensis
 Plugin 'jiangmiao/auto-pairs'
+" show git diff inline
 " Plugin 'airblade/vim-gitgutter'
-"
-" show more details about the git
-Plugin 'gregsexton/gitv'
 " Plugin 'mhinz/vim-signify'
-" search in vim
+
+" for Perl and ack
 Plugin 'mileszs/ack.vim'
-"
 " snippet
-" Plugin 'SirVer/ultisnips'
-Plugin 'shougo/neosnippet-snippets'
-Plugin 'shougo/neosnippet.vim'
-" Plugin 'fatih/vim-go'
+Plugin 'SirVer/ultisnips'
+" Plugin 'shougo/neosnippet-snippets'
+" Plugin 'shougo/neosnippet.vim'
 " Plugin 'shougo/deoplete.nvim'
+
+" Plugin 'fatih/vim-go'
 " Plugin 'nsf/gocode', {'rtp': 'vim/'}
 " Plugin 'sebdah/vim-delve'
 " Plugin 'zchee/deoplete-go'
-" Plugin 'zchee/deoplete-jedi'
 
 Plugin 'w0rp/ale'
-
 " ,be ,bt ,bs ,bv
 Plugin 'jlanzarotta/bufexplorer'
 
 call vundle#end()
-
 filetype plugin indent on
 filetype plugin on
 syntax on
 
-" set color theme
 colorscheme gruvbox
 set backspace=2
 set mouse=a
@@ -71,19 +68,19 @@ set autoindent
 " smartindent is filetype based, cindent automatically turned on for c files
 set smartindent
 " use 4 as indent width for python
-autocmd FileType javascript setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType javascript,js,ts setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType c,cpp setlocal expandtab shiftwidth=4 softtabstop=4
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
-
 " Search
 set hlsearch
 set incsearch
 set ruler
-" set ignorecase
+set ignorecase
 set smartcase
 " auto read file when file changes
 set autoread
 " set textwidth=100
-set colorcolumn=80
+set colorcolumn=100
 " set nowrap
 " set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 set listchars=tab:>-,trail:~,extends:>,precedes:<
@@ -100,7 +97,7 @@ let mapleader = ","
 nnoremap <leader>w :w<CR>
 nnoremap <leader>q :q<CR>
 nnoremap <leader>s :NERDTreeFind<CR>
-nnoremap <leader>h :nohlsearch<CR>
+" nnoremap <leader>h :nohlsearch<CR>
 nnoremap <silent> <C-h> :nohlsearch<CR>
 
 " mapping meta to navigate pane
@@ -118,6 +115,7 @@ nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
+nnoremap <C-w>i <C-w>v
 
 command! -nargs=* T split | terminal <args>
 command! -nargs=* VT vsplit | terminal <args>
@@ -139,7 +137,7 @@ set relativenumber
 " Show current mode
 set showmode
 " Highlight current line
-" set cursorline
+set cursorline
 " show a better line wrap
 set showbreak=↪
 set laststatus=2
@@ -148,6 +146,7 @@ set splitright
 set splitbelow
 set completeopt=menu,menuone    " Show popup menu, even if there is one entry
 set pumheight=10
+set clipboard+=unnamedplus
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " dealing with the trailing whitespaces
@@ -168,17 +167,42 @@ if &term =~ '256color'
     set t_ut=
 endif
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configuration for CtrlP
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
+" let g:ctrlp_map = '<c-p>'
+" let g:ctrlp_cmd = 'CtrlP'
+" set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux"
+" let g:ctrlp_custom_ignore = {
+"     \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
+"     \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz)$',
+"     \ }
+" "\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+" let g:ctrlp_working_path_mode=0
+" let g:ctrlp_match_window_bottom=1
+" let g:ctrlp_max_height=15
+" let g:ctrlp_match_window_reversed=0
+" let g:ctrlp_mruf_max=500
+" let g:ctrlp_follow_symlinks=1
+" " use ag to replace grep
+" if executable('ag')
+"   " Use Ag over Grep
+"   set grepprg=ag\ --nogroup\ --nocolor
+"   " Use ag in CtrlP for listing files.
+"   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+"   " Ag is fast enough that CtrlP doesn't need to cache
+"   let g:ctrlp_use_caching = 0
+" endif
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configuration for tagbar
 map <F3> :TagbarToggle<CR>
-map <F9> :!ctags -R
+" map <F9> :!ctags -R
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Config for vim airline
 let g:airline#extensions#tabline#enabled = 1
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configuration for nerdtree
 "au vimenter * NERDTree
 "au vimenter * wincmd p
@@ -194,8 +218,6 @@ let g:airline#extensions#tabline#enabled = 1
 "endfunction
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | else | NERDTree | wincmd p | endif
 "au vimenter * call OpenNERDTree()
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <F2> :NERDTreeToggle<CR>
 " close nerdtree if no file is open
 au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -225,64 +247,56 @@ let g:NERDTrimTrailingWhitespace = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " YouCompleteMe
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/youcompleteme/third_party/ycmd/.ycm_extra_conf.py'
-let g:ycm_complete_in_comments = 1
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/youcompleteme/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0
-let g:ycm_max_diagnostics_to_display = 0
+let g:ycm_complete_in_comments = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 " Code navigation with Ctrl-] , use Ctrl-O to get back to previous location
-" this will create new entries in the jumplist
+ " this will create new entries in the jumplist
 " using Ctrl+O to go back and Ctrl+I to go forward
 nnoremap <silent> <C-]> :YcmCompleter GoTo<CR>
 " nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" supertab
-" let g:SuperTabDefaultCompletionType = '<c-n>'
-
-" vnoremap <leader>c :w !pbcopy<CR><CR>
-" noremap <leader>v :r !pbpaste<CR><CR>
-set clipboard+=unnamedplus
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configuration for vim-go
-map <C-n> :cnext<CR>
-map <C-m> :cprevious<CR>
-nnoremap <leader>a :cclose<CR>
-
-autocmd FileType go nmap <leader>b <Plug>(go-build)
-autocmd FileType go nmap <leader>r <Plug>(go-run)
-autocmd FileType go nmap <leader>t <Plug>(go-test)
-autocmd FileType go nmap <Leader>i <Plug>(go-info)
-autocmd FileType go ALEDisable
-" use quickfix everywhere and disable location list
-let g:go_list_type = "quickfix"
-" use imports to auto config the missing imports
-let g:go_fmt_command = "goimports"
-let g:go_autodetect_gopath = 1
-let g:go_fmt_fail_silently = 1
-
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
-" let g:go_highlight_operators = 1
-let g:go_highlight_generate_tags = 1
-let g:go_highlight_extra_types = 1
-
-" call lint
-let g:go_metalinter_autosave = 1
-let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck']
-" Navigation
-" C-] or gd == :GoDef
-" C-t == go back
-let g:go_auto_type_info = 1
-let g:go_auto_sameids = 1
-let g:go_snippet_engine = "neosnippet"
-" Open :GoDeclsDir with ctrl-g
-autocmd FileType go nmap <C-g> :GoDeclsDir<cr>
-autocmd FileType go imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
+" map <C-n> :cnext<CR>
+" map <C-m> :cprevious<CR>
+" nnoremap <leader>a :cclose<CR>
+"
+" autocmd FileType go nmap <leader>b <Plug>(go-build)
+" autocmd FileType go nmap <leader>r <Plug>(go-run) <C-w>l
+" autocmd FileType go nmap <leader>t <Plug>(go-test)
+" autocmd FileType go nmap <Leader>i <Plug>(go-info)
+" " autocmd FileType go ALEDisable
+" " use quickfix everywhere and disable location list
+" let g:go_list_type = "quickfix"
+" " use imports to auto config the missing imports
+" let g:go_fmt_command = "goimports"
+" let g:go_autodetect_gopath = 1
+" let g:go_fmt_fail_silently = 1
+"
+" let g:go_highlight_types = 1
+" let g:go_highlight_fields = 1
+" let g:go_highlight_functions = 1
+" let g:go_highlight_function_calls = 1
+" " let g:go_highlight_operators = 1
+" let g:go_highlight_generate_tags = 1
+" let g:go_highlight_extra_types = 1
+"
+" " call lint
+" let g:go_metalinter_autosave = 1
+" let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck']
+" " Navigation
+" " C-] or gd == :GoDef
+" " C-t == go back
+" let g:go_auto_type_info = 1
+" let g:go_auto_sameids = 1
+" let g:go_snippet_engine = "neosnippet"
+" " Open :GoDeclsDir with ctrl-g
+" autocmd FileType go nmap <C-g> :GoDeclsDir<cr>
+" autocmd FileType go imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " if has('nvim')
 "     " Enable deoplete on startup
@@ -315,8 +329,10 @@ autocmd FileType go imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
 "
 " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Error and warning signs.
+autocmd FileType c,cpp,h,hpp ALEDisable
 " let g:ale_sign_error = '>>'
 " let g:ale_sign_warning = '--'
 let g:ale_sign_error = '⤫'
@@ -325,10 +341,8 @@ let g:ale_sign_warning = '⚠'
 let g:airline#extensions#ale#enabled = 1
 let g:ale_linters = {
 \    'go': ['gometalinter'],
-\    'python': ['flake8'],
-\    'c': ['gcc'], 'cpp': ['clang']
+\    'python': ['flake8']
 \}
-let g:ale_c_gcc_options="-Wall -O2"
 " let g:ale_sign_column_always = 1
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
@@ -337,13 +351,41 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let g:gitgutter_async=1
-" " let g:gitgutter_grep=''
-" let g:gitgutter_log=1
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let g:jedi#completions_enabled = 0
-" autocmd FileType python let g:jedi#goto_command = "<C-t>"
+" don't show the help in normal mode
+let g:Lf_HideHelp = 1
+let g:Lf_UseCache = 0
+let g:Lf_UseVersionControlTool = 0
+let g:Lf_IgnoreCurrentBufferName = 1
+" popup mode
+let g:Lf_WindowPosition = 'popup'
+let g:Lf_PreviewInPopup = 1
+let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
+let g:Lf_PreviewResult = {'Function': 1, 'BufTag': 1 }
+
+let g:Lf_ShortcutF = "<C-P>"
+noremap <leader>fb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
+noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
+noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
+" noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
+noremap <leader>ff :<C-U><C-R>=printf("Leaderf function %s", "")<CR><CR>
+
+noremap <C-B> :<C-U><C-R>=printf("Leaderf rg --current-buffer -e %s ", expand("<cword>"))<CR><CR>
+noremap <C-F> :<C-U><C-R>=printf("Leaderf rg -e %s ", expand("<cword>"))<CR><CR>
+" search visually selected text literally
+xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
+noremap go :<C-U>Leaderf! rg --recall<CR>
+
+" " should use `Leaderf gtags --update` first
+" let g:Lf_GtagsAutoGenerate = 0
+" let g:Lf_Gtagslabel = 'native-pygments'
+" noremap <leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
+" noremap <leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+" noremap <leader>fo :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
+" noremap <leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
+" noremap <leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " let g:current_filename = expand('%:t')
 " let g:current_filename = bufname(bufnr('%'))
@@ -359,22 +401,6 @@ let g:ale_set_quickfix = 1
 "     nnoremap <leader>d :VT ipdb %<CR>a
 " endif
 
-au FileType go nnoremap <expr> <leader>d match(bufname(bufnr('%')), '_test\.go$') != -1 ? ':DlvTest<CR>' : ':DlvDebug<CR>'
+" au FileType go nnoremap <expr> <leader>d match(bufname(bufnr('%')), '_test\.go$') != -1 ? ':DlvTest<CR>' : ':DlvDebug<CR>'
 au FileType python nnoremap <leader>d :VT ipdb %<CR>a
 
-" function! ClipboardYank()
-"   call system('xclip -i -selection clipboard', @@)
-" endfunction
-" function! ClipboardPaste()
-"   let @@ = system('xclip -o -selection clipboard')
-" endfunction
-
-" vnoremap <silent> y y:call ClipboardYank()<cr>
-" vnoremap <silent> d d:call ClipboardYank()<cr>
-" nnoremap <silent> p :call ClipboardPaste()<cr>p
-
-vnoremap <silent> y "+y
-vnoremap <silent> yy "+yy
-vnoremap <silent> d "+d
-vnoremap <silent> dd "+dd
-nnoremap <silent> p "+p"
