@@ -99,9 +99,9 @@ set showcmd
 
 " Leader key shortcuts
 let mapleader = ","
-nnoremap <leader>w :w<CR>
-nnoremap <leader>q :q<CR>
-nnoremap <leader>s :NERDTreeFind<CR>
+nnoremap <leader><leader>w :w<CR>
+nnoremap <leader><leader>q :q<CR>
+" nnoremap <leader>s :NERDTreeFind<CR>
 " nnoremap <leader>h :nohlsearch<CR>
 nnoremap <silent> <C-h> :nohlsearch<CR>
 
@@ -207,6 +207,10 @@ map <F3> :TagbarToggle<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Config for vim airline
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:airline_powerline_fonts = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configuration for nerdtree
@@ -418,4 +422,20 @@ let g:Lf_PopupPalette = {
 
 " au FileType go nnoremap <expr> <leader>d match(bufname(bufnr('%')), '_test\.go$') != -1 ? ':DlvTest<CR>' : ':DlvDebug<CR>'
 au FileType python nnoremap <leader>d :VT ipdb %<CR>a
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <Leader> <Plug>(easymotion-prefix)
+" Gif config
+map  <leader>s <Plug>(easymotion-sn)
+omap <leader>s <Plug>(easymotion-tn)
+
+" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
+" Without these mappings, `n` & `N` works fine. (These mappings just provide
+" different highlight method and have some other features )
+map  f <Plug>(easymotion-next)
+map  F <Plug>(easymotion-prev)
+map  <Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader>f <Plug>(easymotion-overwin-f)
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
+
 
