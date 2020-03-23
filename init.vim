@@ -20,7 +20,7 @@ Plugin 'Yggdroot/indentLine'
 Plugin 'Yggdroot/LeaderF'
 
 Plugin 'morhetz/gruvbox'
-"Plugin 'ervandew/supertab'
+" Plugin 'ervandew/supertab'
 Plugin 'elzr/vim-json'
 " Plugin 'pangloss/vim-javascript'
 " Plugin 'tfnico/vim-gradle'
@@ -55,6 +55,12 @@ filetype plugin on
 syntax on
 
 colorscheme gruvbox
+" let g:gruvbox_italic=1
+" let g:gruvbox_italicize_strings=1
+" let g:gruvbox_improved_strings=1
+let g:gruvbox_contrast_dark="hard"
+
+set background=dark
 set backspace=2
 set mouse=a
 
@@ -86,7 +92,6 @@ set colorcolumn=100
 set listchars=tab:>-,trail:~,extends:>,precedes:<
 " set listchars+=space:␣
 set list
-set background=dark
 set nobackup
 set nowritebackup
 set noswapfile
@@ -163,10 +168,11 @@ autocmd FilterWritePre  * :call TrimWhiteSpace()
 autocmd BufWritePre     * :call TrimWhiteSpace()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-if &term =~ '256color'
-    set t_ut=
-endif
-
+" if &term =~ '256color'
+"     set t_ut=
+"     set t_Co=256
+" endif
+set termguicolors
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configuration for CtrlP
 " let g:ctrlp_map = '<c-p>'
@@ -376,6 +382,15 @@ noremap <C-F> :<C-U><C-R>=printf("Leaderf rg -e %s ", expand("<cword>"))<CR><CR>
 " search visually selected text literally
 xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
 noremap go :<C-U>Leaderf! rg --recall<CR>
+
+let g:Lf_PopupPalette = {
+    \  'dark': {
+    \      'Lf_hl_popup_window': {
+    \                'guibg': '#282828',
+    \                'ctermbg': '235'
+    \              }
+    \      }
+    \  }
 
 " " should use `Leaderf gtags --update` first
 " let g:Lf_GtagsAutoGenerate = 0
