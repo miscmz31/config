@@ -1,55 +1,37 @@
-" required
-set nocompatible
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'valloric/youcompleteme'
-Plugin 'scrooloose/nerdtree'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'scrooloose/nerdcommenter'
-" Plugin 'kien/ctrlp.vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'majutsushi/tagbar'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'Yggdroot/indentLine'
-Plugin 'Yggdroot/LeaderF'
-
-Plugin 'morhetz/gruvbox'
-" Plugin 'ervandew/supertab'
-Plugin 'elzr/vim-json'
+" set nocompatible
+call plug#begin('~/.vim/plugged')
+Plug 'valloric/youcompleteme'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'scrooloose/nerdcommenter'
+Plug 'vim-airline/vim-airline'
+Plug 'majutsushi/tagbar'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'easymotion/vim-easymotion'
+Plug 'Yggdroot/indentLine'
+Plug 'Yggdroot/LeaderF'
+Plug 'morhetz/gruvbox'
+Plug 'elzr/vim-json'
+Plug 'jiangmiao/auto-pairs'
+" Plugin 'mhinz/vim-signify'
 " Plugin 'pangloss/vim-javascript'
 " Plugin 'tfnico/vim-gradle'
 " Plugin 'leafgarland/typescript-vim'
-
-" auto pair parenthensis
-Plugin 'jiangmiao/auto-pairs'
-" show git diff inline
-" Plugin 'airblade/vim-gitgutter'
-" Plugin 'mhinz/vim-signify'
-
-" for Perl and ack
-Plugin 'mileszs/ack.vim'
-" snippet
-Plugin 'SirVer/ultisnips'
+Plug 'mileszs/ack.vim'
+Plug 'SirVer/ultisnips'
 " Plugin 'shougo/neosnippet-snippets'
 " Plugin 'shougo/neosnippet.vim'
 " Plugin 'shougo/deoplete.nvim'
-
 " Plugin 'fatih/vim-go'
 " Plugin 'nsf/gocode', {'rtp': 'vim/'}
 " Plugin 'sebdah/vim-delve'
 " Plugin 'zchee/deoplete-go'
-
-Plugin 'w0rp/ale'
+Plug 'dense-analysis/ale'
 " ,be ,bt ,bs ,bv
-Plugin 'jlanzarotta/bufexplorer'
+Plug 'jlanzarotta/bufexplorer'
+call plug#end()
 
-call vundle#end()
 filetype plugin indent on
 filetype plugin on
 syntax on
@@ -59,36 +41,27 @@ colorscheme gruvbox
 " let g:gruvbox_italicize_strings=1
 " let g:gruvbox_improved_strings=1
 let g:gruvbox_contrast_dark="hard"
-
 set background=dark
+
 set backspace=2
 set mouse=a
-
-" force using all spaces for tab
 set expandtab
 set shiftwidth=4
 set softtabstop=4
 set smarttab
-" auto indent will copy the indent from previous line
 set autoindent
-" smartindent is filetype based, cindent automatically turned on for c files
 set smartindent
-" use 4 as indent width for python
-autocmd FileType javascript,js,ts setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType javascript,js,ts,json setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType c,cpp setlocal expandtab shiftwidth=4 softtabstop=4
-autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
-" Search
+" autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 set hlsearch
 set incsearch
 set ruler
 set ignorecase
 set smartcase
-" auto read file when file changes
 set autoread
-" set textwidth=100
 set colorcolumn=100
 " set nowrap
-" set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 set listchars=tab:>-,trail:~,extends:>,precedes:<
 " set listchars+=space:␣
 set list
@@ -130,20 +103,14 @@ command! -nargs=* VT vsplit | terminal <args>
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
-" Act like D and C
 nnoremap Y y$
-
 " Enter automatically into the files directory
 autocmd BufEnter * silent! lcd %:p:h
 
-" line numbers
 set number
 set relativenumber
-" Show current mode
 set showmode
-" Highlight current line
 set cursorline
-" show a better line wrap
 set showbreak=↪
 set laststatus=2
 set autowrite
@@ -160,50 +127,20 @@ match ErrorMsg '\s\+$'
 function! TrimWhiteSpace()
     %s/\s\+$//e
 endfunction
-
 " nnoremap <silent> <Leader>rts :call TrimWhiteSpace()<CR>
 autocmd FileWritePre    * :call TrimWhiteSpace()
 autocmd FileAppendPre   * :call TrimWhiteSpace()
 autocmd FilterWritePre  * :call TrimWhiteSpace()
 autocmd BufWritePre     * :call TrimWhiteSpace()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " if &term =~ '256color'
 "     set t_ut=
 "     set t_Co=256
 " endif
 set termguicolors
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Configuration for CtrlP
-" let g:ctrlp_map = '<c-p>'
-" let g:ctrlp_cmd = 'CtrlP'
-" set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux"
-" let g:ctrlp_custom_ignore = {
-"     \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
-"     \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz)$',
-"     \ }
-" "\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-" let g:ctrlp_working_path_mode=0
-" let g:ctrlp_match_window_bottom=1
-" let g:ctrlp_max_height=15
-" let g:ctrlp_match_window_reversed=0
-" let g:ctrlp_mruf_max=500
-" let g:ctrlp_follow_symlinks=1
-" " use ag to replace grep
-" if executable('ag')
-"   " Use Ag over Grep
-"   set grepprg=ag\ --nogroup\ --nocolor
-"   " Use ag in CtrlP for listing files.
-"   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-"   " Ag is fast enough that CtrlP doesn't need to cache
-"   let g:ctrlp_use_caching = 0
-" endif
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configuration for tagbar
 map <F3> :TagbarToggle<CR>
-" map <F9> :!ctags -R
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Config for vim airline
 let g:airline#extensions#tabline#enabled = 1
@@ -211,7 +148,6 @@ let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline_powerline_fonts = 1
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configuration for nerdtree
 "au vimenter * NERDTree
@@ -237,7 +173,6 @@ let g:NERDTreeWinSize=35
 let NERDTreeShowHidden=1
 " auto open NERDTree for new tab
 "au BufWinEnter * if !argc() | NERDTreeMirror | endif
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configuration for nerdcommenter
 " Add spaces after comment delimiters by default
@@ -254,7 +189,6 @@ let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
 let g:NERDCommentEmptyLines = 1
 " Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " YouCompleteMe
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/youcompleteme/.ycm_extra_conf.py'
@@ -267,7 +201,6 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 " using Ctrl+O to go back and Ctrl+I to go forward
 nnoremap <silent> <C-]> :YcmCompleter GoTo<CR>
 " nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configuration for vim-go
 " map <C-n> :cnext<CR>
@@ -306,7 +239,6 @@ nnoremap <silent> <C-]> :YcmCompleter GoTo<CR>
 " " Open :GoDeclsDir with ctrl-g
 " autocmd FileType go nmap <C-g> :GoDeclsDir<cr>
 " autocmd FileType go imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
-"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " if has('nvim')
 "     " Enable deoplete on startup
@@ -339,29 +271,29 @@ nnoremap <silent> <C-]> :YcmCompleter GoTo<CR>
 "
 " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Error and warning signs.
 autocmd FileType c,cpp,h,hpp ALEDisable
-" let g:ale_sign_error = '>>'
-" let g:ale_sign_warning = '--'
-let g:ale_sign_error = '⤫'
-let g:ale_sign_warning = '⚠'
-" Enable integration with airline.
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
+" let g:ale_sign_error = '⤫'
+" let g:ale_sign_warning = '⚠'
+" Enable integration with airline
 let g:airline#extensions#ale#enabled = 1
 let g:ale_linters = {
 \    'go': ['gometalinter'],
 \    'python': ['flake8']
 \}
-" let g:ale_sign_column_always = 1
+let b:ale_fixers = { 'python': ['yapf'] }
+let g:ale_sign_column_always = 1
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-" let g:ale_lint_on_enter = 0
-let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 1
+let g:ale_lint_on_text_changed = 'normal'
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
-
+let g:ale_list_window_size = 5
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " don't show the help in normal mode
 let g:Lf_HideHelp = 1
@@ -380,12 +312,11 @@ noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
 noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
 " noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
 noremap <leader>ff :<C-U><C-R>=printf("Leaderf function %s", "")<CR><CR>
-
 noremap <C-B> :<C-U><C-R>=printf("Leaderf rg --current-buffer -e %s ", expand("<cword>"))<CR><CR>
 noremap <C-F> :<C-U><C-R>=printf("Leaderf rg -e %s ", expand("<cword>"))<CR><CR>
 " search visually selected text literally
-xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
-noremap go :<C-U>Leaderf! rg --recall<CR>
+" xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
+" noremap go :<C-U>Leaderf! rg --recall<CR>
 
 let g:Lf_PopupPalette = {
     \  'dark': {
@@ -427,7 +358,6 @@ map <Leader> <Plug>(easymotion-prefix)
 " Gif config
 map  <leader>s <Plug>(easymotion-sn)
 omap <leader>s <Plug>(easymotion-tn)
-
 " These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
 " Without these mappings, `n` & `N` works fine. (These mappings just provide
 " different highlight method and have some other features )
