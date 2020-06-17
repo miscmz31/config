@@ -121,6 +121,15 @@ set pumheight=10
 set clipboard+=unnamedplus
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enable highlight for self in python
+augroup python
+    autocmd!
+    autocmd FileType python
+                \   syn keyword pythonSelf self
+                \ | highlight def link pythonSelf Number
+augroup end
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " dealing with the trailing whitespaces
 match ErrorMsg '\s\+$'
 " Removes trailing spaces
@@ -284,7 +293,9 @@ let g:ale_linters = {
 \    'go': ['gometalinter'],
 \    'python': ['flake8']
 \}
-let b:ale_fixers = { 'python': ['yapf'] }
+let b:ale_fixers = {
+\    'python': ['yapf']
+\}
 let g:ale_sign_column_always = 1
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
