@@ -27,23 +27,25 @@ Plug 'Yggdroot/LeaderF'
 Plug 'jlanzarotta/bufexplorer'
 " JSON body
 Plug 'elzr/vim-json'
-
+" code folding
+Plug 'tmhedberg/SimpylFold'
 " Go
 Plug 'fatih/vim-go'
 Plug 'nsf/gocode', {'rtp': 'vim/'}
 " Plug 'sebdah/vim-delve'
-
-" Python
-Plug 'davidhalter/jedi-vim'
-Plug 'Vimjas/vim-python-pep8-indent'
-Plug 'tweekmonster/impsort.vim'
-Plug 'ncm2/ncm2-jedi'
 
 " ncm2
 Plug 'roxma/nvim-yarp'  " dependency of ncm2
 Plug 'ncm2/ncm2'  " awesome autocomplete plugin
 Plug 'ncm2/ncm2-bufword'  " buffer keyword completion
 Plug 'ncm2/ncm2-path'  " filepath completion
+
+" Python
+Plug 'davidhalter/jedi-vim'
+Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'tweekmonster/impsort.vim'
+Plug 'ncm2/ncm2-jedi'
+" Plug 'HansPinckaers/ncm2-jedi'  " fast python completion (use ncm2 if you want type info or snippet support)
 
 call plug#end()
 
@@ -105,7 +107,7 @@ set autowrite
 set splitright
 set splitbelow
 set completeopt=menuone,noselect,noinsert
-set pumheight=10
+" set pumheight=10
 set clipboard+=unnamedplus
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -381,7 +383,7 @@ let g:Lf_PopupPalette = {
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Debug mode config
 " au FileType go nnoremap <expr> <leader>d match(bufname(bufnr('%')), '_test\.go$') != -1 ? ':DlvTest<CR>' : ':DlvDebug<CR>'
-au FileType python nnoremap <leader>d :VT ipdb %<CR>a
+" au FileType python nnoremap <leader>d :VT ipdb %<CR>a
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " easy motion configuration
@@ -407,6 +409,9 @@ let ncm2#popup_delay = 5
 let ncm2#complete_length = [[1,1]]
 let g:ncm2#matcher = 'substrfuzzy'
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" use tab to switch between popup
 set pumheight=5
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
