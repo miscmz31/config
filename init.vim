@@ -34,6 +34,8 @@ Plug 'jlanzarotta/bufexplorer'
 
 " python code folding
 " Plug 'tmhedberg/SimpylFold'
+"
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
@@ -211,17 +213,42 @@ let g:NERDTrimTrailingWhitespace = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Configuration for vim-go
+autocmd FileType go nmap <leader>gb <Plug>(go-build)
+autocmd FileType go nmap <leader>gr <Plug>(go-run)
+autocmd FileType go nmap <leader>gt <Plug>(go-test)
+autocmd FileType go nmap <Leader>gi <Plug>(go-info)
+" use quickfix everywhere and disable location list
+" let g:go_list_type = "quickfix"
+" use imports to auto config the missing imports
+let g:go_fmt_command = "goimports"
+let g:go_autodetect_gopath = 1
+" let g:go_fmt_fail_silently = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+" let g:go_highlight_operators = 1
+let g:go_highlight_generate_tags = 1
+let g:go_highlight_extra_types = 1
+let g:go_auto_type_info = 1
+let g:go_auto_sameids = 1
+
+let g:go_metalinter_autosave = 1
+let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck']
+let g:go_def_mapping_enabled = 0
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ALE Error and warning signs.
-" autocmd FileType c,cpp,h,hpp ALEDisable
+" autocmd FileType python ALEDisable
 " let g:ale_sign_error = '>>'
 " let g:ale_sign_warning = '--'
-" " let g:ale_sign_error = '⤫'
-" " let g:ale_sign_warning = '⚠'
+"
 " " Enable integration with airline
 " let g:airline#extensions#ale#enabled = 1
 " let g:ale_linters = {
-" \    'go': ['gometalinter'],
-" \    'python': ['flake8']
+" \    'go': ['gometalinter']
 " \}
 " let b:ale_fixers = {
 " \    'python': ['yapf']
@@ -237,10 +264,11 @@ let g:NERDTrimTrailingWhitespace = 1
 " let g:ale_set_quickfix = 1
 " let g:ale_list_window_size = 5
 "
-" let g:ale_python_flake8_options = '--ignore=E129,E501,E302,E265,E241,E305,E402,W503'
-" let g:ale_python_pylint_options = '-j 0 --max-line-length=120'
-" let g:ale_open_list = 1
-" let g:ale_keep_list_window_open = '1'
+" " let g:ale_python_flake8_options = '--ignore=E129,E501,E302,E265,E241,E305,E402,W503'
+" " let g:ale_python_pylint_options = '-j 0 --max-line-length=120'
+" " let g:ale_open_list = 1
+" " let g:ale_keep_list_window_open = '1'
+" let g:ale_disable_lsp = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LeaderF configuration
