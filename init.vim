@@ -187,6 +187,13 @@ let g:airline_powerline_fonts = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configuration for nerdtree
 map <leader>nt :NERDTreeToggle<CR>
+
+" swap i/s keys
+let g:NERDTreeMapOpenSplit = 's'
+let g:NERDTreeMapPreviewSplit = 'gs'
+let g:NERDTreeMapOpenVSplit = 'i'
+let g:NERDTreeMapPreviewVSplit = 'gi'
+
 " close nerdtree if no file is open
 au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeDirArrowExpandable = '▸'
