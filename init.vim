@@ -1,42 +1,14 @@
 syntax on
 
 call plug#begin('~/.vim/plugged')
-" General
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'scrooloose/nerdcommenter'
-
-" Show icon in nerdtree
-" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-" Plug 'ryanoasis/vim-devicons'
-
-" Bottom airline
 Plug 'vim-airline/vim-airline'
-
-" Change quote in second
 Plug 'tpope/vim-surround'
-
 Plug 'easymotion/vim-easymotion'
 Plug 'Yggdroot/indentLine'
 Plug 'morhetz/gruvbox'
-
-" Embedded in coc
-" Plug 'w0rp/ale'
-" Plug 'jiangmiao/auto-pairs'
-" Plug 'tpope/vim-fugitive'
-" Plug 'majutsushi/tagbar'
-
-" Quick search
 Plug 'Yggdroot/LeaderF'
-
-" ,be ,bt ,bs ,bv
-Plug 'jlanzarotta/bufexplorer'
-
-" python code folding
-" Plug 'tmhedberg/SimpylFold'
-"
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
 " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
@@ -185,21 +157,21 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline_powerline_fonts = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Configuration for nerdtree
-map <leader>nt :NERDTreeToggle<CR>
-
-" swap i/s keys
-let g:NERDTreeMapOpenSplit = 's'
-let g:NERDTreeMapPreviewSplit = 'gs'
-let g:NERDTreeMapOpenVSplit = 'i'
-let g:NERDTreeMapPreviewVSplit = 'gi'
-
-" close nerdtree if no file is open
-au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
-let g:NERDTreeWinSize=35
-let NERDTreeShowHidden=1
+" " Configuration for nerdtree
+" map <leader>nt :NERDTreeToggle<CR>
+"
+" " swap i/s keys
+" let g:NERDTreeMapOpenSplit = 's'
+" let g:NERDTreeMapPreviewSplit = 'gs'
+" let g:NERDTreeMapOpenVSplit = 'i'
+" let g:NERDTreeMapPreviewVSplit = 'gi'
+"
+" " close nerdtree if no file is open
+" au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" let g:NERDTreeDirArrowExpandable = '▸'
+" let g:NERDTreeDirArrowCollapsible = '▾'
+" let g:NERDTreeWinSize=35
+" let NERDTreeShowHidden=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configuration for nerdcommenter
@@ -335,6 +307,12 @@ map  <Leader>f <Plug>(easymotion-bd-f)
 nmap <Leader>f <Plug>(easymotion-overwin-f)
 map  <Leader>w <Plug>(easymotion-bd-w)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" for indentLine
+let g:indentLine_fileTypeExclude = ['coc-explorer']
+nmap <leader><leader>e :CocCommand explorer<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
