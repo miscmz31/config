@@ -156,6 +156,11 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline_powerline_fonts = 1
 
+let g:airline#extensions#coc#enabled = 1
+let g:airline#extensions#hunks#enabled = 1
+let g:airline#extensions#hunks#non_zero_only = 0
+let g:airline#extensions#hunks#coc_git = 1
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " " Configuration for nerdtree
 " map <leader>nt :NERDTreeToggle<CR>
@@ -395,8 +400,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
-vmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+vmap <leader>ff  <Plug>(coc-format-selected)
+nmap <leader>ff  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -453,4 +458,12 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+" Show cocList
+nnoremap <silent> <space>l  :<C-u>CocList<CR>
 
+" function! s:update_git_status()
+"     let g:airline_section_b = "%{get(g:,'coc_git_status','')}"
+" endfunction
+"
+" let g:airline_section_b = "%{get(g:,'coc_git_status','')}"
+" autocmd User CocGitStatusChange call s:update_git_status()
