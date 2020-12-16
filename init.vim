@@ -316,6 +316,21 @@ nmap <leader><leader>e :CocCommand explorer<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:coc_global_extensions = [
+      \'coc-markdownlint',
+      \'coc-highlight',
+      \'coc-go',
+      \'coc-python',
+      \'coc-explorer',
+      \'coc-yank',
+      \'coc-yaml',
+      \'coc-xml',
+      \'coc-json',
+      \'coc-git',
+      \'coc-clangd',
+      \'coc-cmake',
+      \'coc-lists',
+      \]
 " Recommended config for COC
 " if hidden is not set, TextEdit might fail.
 set hidden
