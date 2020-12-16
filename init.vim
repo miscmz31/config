@@ -1,15 +1,16 @@
 syntax on
 
 call plug#begin('~/.vim/plugged')
-Plug 'scrooloose/nerdcommenter'
-Plug 'vim-airline/vim-airline'
+Plug 'neoclide/mycomment.vim'
+Plug 'lambdalisue/gina.vim'
+Plug 'tommcdo/vim-lion'
+Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-surround'
 Plug 'easymotion/vim-easymotion'
 Plug 'Yggdroot/indentLine'
 Plug 'morhetz/gruvbox'
 Plug 'Yggdroot/LeaderF'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-" Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
 call plug#end()
@@ -68,6 +69,7 @@ set showmode
 set cursorline
 set showbreak=↪
 set laststatus=2
+set showtabline=2
 set autowrite
 set splitright
 set splitbelow
@@ -81,7 +83,6 @@ let mapleader = ","
 nnoremap <leader><leader>w :w<CR>
 nnoremap <leader><leader>q :q<CR>
 nnoremap <leader>h :nohlsearch<CR>
-" nnoremap <silent> <C-h> :nohlsearch<CR>
 
 " mapping meta to navigate pane
 tnoremap <Esc> <C-\><C-n>
@@ -144,40 +145,6 @@ autocmd BufWritePre     * :call TrimWhiteSpace()
 " endif
 set termguicolors
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Configuration for tagbar
-" map <F3> :TagbarToggle<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Config for vim airline
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-let g:airline_powerline_fonts = 1
-
-let g:airline#extensions#coc#enabled = 1
-let g:airline#extensions#hunks#enabled = 1
-let g:airline#extensions#hunks#non_zero_only = 0
-let g:airline#extensions#hunks#coc_git = 1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" " Configuration for nerdtree
-" map <leader>nt :NERDTreeToggle<CR>
-"
-" " swap i/s keys
-" let g:NERDTreeMapOpenSplit = 's'
-" let g:NERDTreeMapPreviewSplit = 'gs'
-" let g:NERDTreeMapOpenVSplit = 'i'
-" let g:NERDTreeMapPreviewVSplit = 'gi'
-"
-" " close nerdtree if no file is open
-" au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" let g:NERDTreeDirArrowExpandable = '▸'
-" let g:NERDTreeDirArrowCollapsible = '▾'
-" let g:NERDTreeWinSize=35
-" let NERDTreeShowHidden=1
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configuration for nerdcommenter
 " Add spaces after comment delimiters by default
@@ -222,37 +189,6 @@ let g:go_metalinter_autosave = 1
 let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck']
 let g:go_def_mapping_enabled = 0
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ALE Error and warning signs.
-" autocmd FileType python ALEDisable
-" let g:ale_sign_error = '>>'
-" let g:ale_sign_warning = '--'
-"
-" " Enable integration with airline
-" let g:airline#extensions#ale#enabled = 1
-" let g:ale_linters = {
-" \    'go': ['gometalinter']
-" \}
-" let b:ale_fixers = {
-" \    'python': ['yapf']
-" \}
-" let g:ale_sign_column_always = 1
-" let g:ale_echo_msg_error_str = 'E'
-" let g:ale_echo_msg_warning_str = 'W'
-" let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-" let g:ale_lint_on_enter = 0
-" let g:ale_lint_on_save = 1
-" let g:ale_lint_on_text_changed = 'normal'
-" let g:ale_set_loclist = 0
-" let g:ale_set_quickfix = 1
-" let g:ale_list_window_size = 5
-"
-" " let g:ale_python_flake8_options = '--ignore=E129,E501,E302,E265,E241,E305,E402,W503'
-" " let g:ale_python_pylint_options = '-j 0 --max-line-length=120'
-" " let g:ale_open_list = 1
-" " let g:ale_keep_list_window_open = '1'
-" let g:ale_disable_lsp = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LeaderF configuration
@@ -461,9 +397,13 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " Show cocList
 nnoremap <silent> <space>l  :<C-u>CocList<CR>
 
-" function! s:update_git_status()
-"     let g:airline_section_b = "%{get(g:,'coc_git_status','')}"
-" endfunction
-"
-" let g:airline_section_b = "%{get(g:,'coc_git_status','')}"
-" autocmd User CocGitStatusChange call s:update_git_status()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:lion_squeeze_spaces = 1
+let g:lion_create_maps = 1
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+for s:path in split(glob('~/.vim/vimrc/*.vim'), "\n")
+  exe 'source ' . s:path
+endfor
