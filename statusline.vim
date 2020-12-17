@@ -1,7 +1,10 @@
 function! MyStatusLine()
   return s:GetPaste()
         \. "%4*%{MyStatusGit()}%*"
-        \. "%5*%{MyStatusGitChanges()}%* %{MyStatusCoc()} "
+        \. "%5*%{MyStatusGitChanges()}%*"
+        \. "%3*%{ErrorsCoc()}%*"
+        \. "%6*%{WarningsCoc()}%*"
+        \. "%{MyStatusCoc()} "
         \. "%6*%{get(b:, 'coc_current_function', '')}%*"
         \. " %f %{MyStatusModifySymbol()}"
         \. " %{MyStatusReadonly()}"
@@ -28,9 +31,32 @@ function! MyStatusReadonly()
   return "  "
 endfunction
 
+function! WarningsCoc()
+  if get(g:, 'did_coc_loaded', 0)
+    let info = get(b:, 'coc_diagnostic_info', {})
+    if empty(info) | return '' | endif
+    if get(info, 'warning', 0)
+      return 'W:' . info['warning'] . ' '
+    endif
+  endif
+  return ''
+endfunction
+
+function! ErrorsCoc()
+  if get(g:, 'did_coc_loaded', 0)
+    let info = get(b:, 'coc_diagnostic_info', {})
+    if empty(info) | return '' | endif
+    if get(info, 'error', 0)
+      return ' E:' . info['error'] . ' '
+    endif
+  endif
+  return ''
+endfunction
+
 function! MyStatusCoc()
   if get(g:, 'did_coc_loaded', 0)
-    return coc#status()
+    return get(g:, 'coc_status', '')
+    "return coc#status()
   endif
   return ''
 endfunction

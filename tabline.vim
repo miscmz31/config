@@ -168,11 +168,13 @@ function! MyTabLabel(n)
   let winnr = tabpagewinnr(a:n)
   let name = bufname(buflist[winnr - 1])
   let full_path = fnamemodify(name, ':p')
-  let icon = GetFileIcon(full_path)
+  "let icon = GetFileIcon(full_path)
+  "let mod = &modified ? ' [+]' : ''
   if empty(name)
     return '[No Name]'
   else
-    return a:n . ' '. icon.' '.fnamemodify(name, ':t')
+    "return a:n . '|'. icon.' '.fnamemodify(name, ':t').mod
+    return a:n . '|'.' '.fnamemodify(name, ':t')
   endif
 endfunction
 
