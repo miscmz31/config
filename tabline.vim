@@ -168,13 +168,13 @@ function! MyTabLabel(n)
   let winnr = tabpagewinnr(a:n)
   let name = bufname(buflist[winnr - 1])
   let full_path = fnamemodify(name, ':p')
-  "let icon = GetFileIcon(full_path)
-  "let mod = &modified ? ' [+]' : ''
+  let icon = GetFileIcon(full_path)
+  let mod = &modified ? ' [+]' : ''
   if empty(name)
     return '[No Name]'
   else
-    "return a:n . '|'. icon.' '.fnamemodify(name, ':t').mod
-    return a:n . '|'.' '.fnamemodify(name, ':t')
+    return a:n . '|'. icon.' '.fnamemodify(name, ':t').mod
+    "return a:n . '|'.' '.fnamemodify(name, ':t')
   endif
 endfunction
 
@@ -202,6 +202,7 @@ function! MyTabLine()
     " select the highlighting
     if i + 1 == tabpagenr()
       let s .= '%#TabLineSel#'
+      let s .= '%#TabLineSepinactive_modinactive_mod#'
     else
       let s .= '%#TabLine#'
     endif
@@ -214,9 +215,9 @@ function! MyTabLine()
   " after the last tab fill with TabLineFill and reset tab page nr
   let s .= '%#TabLineFill#%T'
   let s .= ' %= '
-  let s .= '%#TabLineSepnullinactive# '
-  let s .= '%#TabLineSepinactiveinactive# '
-  let s .= s:time
+  "let s .= '%#TabLineSepnullinactive# '
+  "let s .= '%#TabLineSepinactiveinactive# '
+  "let s .= s:time
   "let s .= '%#TabLineSepinactiveinactive_mod# '
   "let s .= '%#TabLineSepinactive_modinactive_mod# '
   "let s .= get(g:, 'coc_weather', '')
