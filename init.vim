@@ -11,7 +11,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'morhetz/gruvbox'
 Plug 'Yggdroot/LeaderF'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 
@@ -80,7 +80,7 @@ set clipboard+=unnamedplus
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Leader key shortcuts
 let mapleader = ","
-nnoremap <leader><leader>w :w<CR>
+nnoremap <leader>w :w<CR>
 nnoremap <leader><leader>q :q<CR>
 nnoremap <leader>h :nohlsearch<CR>
 
@@ -236,24 +236,18 @@ let g:Lf_PopupPalette = {
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " easy motion configuration
-map <Leader> <Plug>(easymotion-prefix)
-map  <leader>s <Plug>(easymotion-sn)
-omap <leader>s <Plug>(easymotion-tn)
+"map <Leader> <Plug>(easymotion-prefix)
+"map  <leader><leader>s <Plug>(easymotion-sn)
+"omap <leader><leader>s <Plug>(easymotion-tn)
 " These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
 " Without these mappings, `n` & `N` works fine. (These mappings just provide
 " different highlight method and have some other features )
-map  f <Plug>(easymotion-next)
-map  F <Plug>(easymotion-prev)
-map  <Leader>f <Plug>(easymotion-bd-f)
-nmap <Leader>f <Plug>(easymotion-overwin-f)
-map  <Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" for indentLine
-let g:indentLine_fileTypeExclude = ['coc-explorer']
-nmap <leader><leader>e :CocCommand explorer<CR>
+"map  f <Plug>(easymotion-next)
+"map  F <Plug>(easymotion-prev)
+"map  <Leader>f <Plug>(easymotion-bd-f)
+"nmap <Leader>f <Plug>(easymotion-overwin-f)
+map  <leader><leader>w <Plug>(easymotion-bd-w)
+nmap <Leader><leader>w <Plug>(easymotion-overwin-w)
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -261,7 +255,7 @@ let g:coc_global_extensions = [
       \'coc-markdownlint',
       \'coc-highlight',
       \'coc-go',
-      \'coc-python',
+      \'coc-pyright',
       \'coc-explorer',
       \'coc-yank',
       \'coc-yaml',
@@ -308,9 +302,9 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " Coc only does snippet and additional edit on confirm.
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" Use `[c` and `]c` to navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
+" Use `-c` and `=c` to navigate diagnostics
+nmap <silent> -c <Plug>(coc-diagnostic-prev)
+nmap <silent> =c <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
@@ -336,8 +330,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
-vmap <leader>ff  <Plug>(coc-format-selected)
-nmap <leader>ff  <Plug>(coc-format-selected)
+vmap <leader>fo  <Plug>(coc-format-selected)
+nmap <leader>fo  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -362,7 +356,6 @@ command! -nargs=0 Format :call CocAction('format')
 " Use `:Fold` to fold current buffer
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
-
 " Add diagnostic info for https://github.com/itchyny/lightline.vim
 let g:lightline = {
       \ 'colorscheme': 'wombat',
@@ -375,9 +368,10 @@ let g:lightline = {
       \ },
       \ }
 
+" for indentLine
+let g:indentLine_fileTypeExclude = ['coc-explorer']
+nmap <silent><space>o :<C-u>CocCommand explorer<CR>
 
-
-" Using CocList
 " Show all diagnostics
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions
@@ -385,7 +379,7 @@ nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 " Show commands
 nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+"nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols
 nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
@@ -399,9 +393,15 @@ nnoremap <silent> <space>l  :<C-u>CocList<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-lion
 let g:lion_squeeze_spaces = 1
 let g:lion_create_maps = 1
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" add surrounding
+nmap <leader>' ysiw'
+nmap <leader>" ysiw"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 for s:path in split(glob('~/.vim/vimrc/*.vim'), "\n")
