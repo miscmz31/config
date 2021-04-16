@@ -5,11 +5,12 @@ Plug 'neoclide/mycomment.vim'
 Plug 'lambdalisue/gina.vim'
 Plug 'tommcdo/vim-lion'
 Plug 'ryanoasis/vim-devicons'
-Plug 'tpope/vim-surround'
+"Plug 'tpope/vim-surround'
 Plug 'easymotion/vim-easymotion'
 Plug 'Yggdroot/indentLine'
 Plug 'morhetz/gruvbox'
 Plug 'Yggdroot/LeaderF'
+Plug 'troydm/zoomwintab.vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -20,6 +21,13 @@ filetype plugin indent on
 filetype plugin on
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" terminal color settings
+"if &term =~ '256color'
+"set t_ut=
+"set t_Co=256
+"endif
+"set termguicolors
+
 colorscheme gruvbox
 " let g:gruvbox_italic=1
 " let g:gruvbox_italicize_strings=1
@@ -37,6 +45,7 @@ set smarttab
 set autoindent
 set smartindent
 autocmd FileType javascript,js,ts,json setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType c,cpp,h,hpp setlocal expandtab shiftwidth=2 softtabstop=2
 
 set hlsearch
 set incsearch
@@ -138,12 +147,6 @@ autocmd FilterWritePre  * :call TrimWhiteSpace()
 autocmd BufWritePre     * :call TrimWhiteSpace()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" terminal color settings
-" if &term =~ '256color'
-"     set t_ut=
-"     set t_Co=256
-" endif
-set termguicolors
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configuration for nerdcommenter
@@ -265,6 +268,7 @@ let g:coc_global_extensions = [
       \'coc-clangd',
       \'coc-cmake',
       \'coc-lists',
+      \'coc-pairs',
       \]
 " Recommended config for COC
 " if hidden is not set, TextEdit might fail.
