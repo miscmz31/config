@@ -5,11 +5,12 @@ Plug 'neoclide/mycomment.vim'
 Plug 'lambdalisue/gina.vim'
 Plug 'tommcdo/vim-lion'
 Plug 'ryanoasis/vim-devicons'
-Plug 'tpope/vim-surround'
+"Plug 'tpope/vim-surround'
 Plug 'easymotion/vim-easymotion'
 Plug 'Yggdroot/indentLine'
 Plug 'morhetz/gruvbox'
 Plug 'Yggdroot/LeaderF'
+Plug 'troydm/zoomwintab.vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -36,7 +37,7 @@ set softtabstop=4
 set smarttab
 set autoindent
 set smartindent
-autocmd FileType javascript,js,ts,json setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType c,h,cpp,hpp,javascript,js,ts,json setlocal expandtab shiftwidth=2 softtabstop=2
 
 set hlsearch
 set incsearch
@@ -45,7 +46,7 @@ set ignorecase
 set smartcase
 set autoread
 
-set nowrap
+set wrap
 set colorcolumn=100
 
 set listchars=tab:>-,trail:~,extends:>,precedes:<
@@ -254,18 +255,15 @@ nmap <Leader><leader>w <Plug>(easymotion-overwin-w)
 let g:coc_global_extensions = [
       \'coc-markdownlint',
       \'coc-highlight',
-      \'coc-go',
       \'coc-pyright',
       \'coc-explorer',
       \'coc-yank',
-      \'coc-yaml',
       \'coc-xml',
       \'coc-json',
       \'coc-git',
       \'coc-clangd',
-      \'coc-cmake',
       \'coc-lists',
-      \]
+      \'coc-pairs']
 " Recommended config for COC
 " if hidden is not set, TextEdit might fail.
 set hidden
@@ -407,3 +405,4 @@ nmap <leader>" ysiw"
 for s:path in split(glob('~/.vim/vimrc/*.vim'), "\n")
   exe 'source ' . s:path
 endfor
+
