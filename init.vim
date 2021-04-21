@@ -21,6 +21,13 @@ filetype plugin indent on
 filetype plugin on
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" terminal color settings
+"if &term =~ '256color'
+"set t_ut=
+"set t_Co=256
+"endif
+"set termguicolors
+
 colorscheme gruvbox
 " let g:gruvbox_italic=1
 " let g:gruvbox_italicize_strings=1
@@ -37,7 +44,8 @@ set softtabstop=4
 set smarttab
 set autoindent
 set smartindent
-autocmd FileType c,h,cpp,hpp,javascript,js,ts,json setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType javascript,js,ts,json setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType c,cpp,h,hpp setlocal expandtab shiftwidth=2 softtabstop=2
 
 set hlsearch
 set incsearch
@@ -46,7 +54,7 @@ set ignorecase
 set smartcase
 set autoread
 
-set wrap
+set nowrap
 set colorcolumn=100
 
 set listchars=tab:>-,trail:~,extends:>,precedes:<
@@ -139,12 +147,6 @@ autocmd FilterWritePre  * :call TrimWhiteSpace()
 autocmd BufWritePre     * :call TrimWhiteSpace()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" terminal color settings
-" if &term =~ '256color'
-"     set t_ut=
-"     set t_Co=256
-" endif
-set termguicolors
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configuration for nerdcommenter
@@ -255,15 +257,19 @@ nmap <Leader><leader>w <Plug>(easymotion-overwin-w)
 let g:coc_global_extensions = [
       \'coc-markdownlint',
       \'coc-highlight',
+      \'coc-go',
       \'coc-pyright',
       \'coc-explorer',
       \'coc-yank',
+      \'coc-yaml',
       \'coc-xml',
       \'coc-json',
       \'coc-git',
       \'coc-clangd',
+      \'coc-cmake',
       \'coc-lists',
-      \'coc-pairs']
+      \'coc-pairs',
+      \]
 " Recommended config for COC
 " if hidden is not set, TextEdit might fail.
 set hidden
@@ -405,4 +411,3 @@ nmap <leader>" ysiw"
 for s:path in split(glob('~/.vim/vimrc/*.vim'), "\n")
   exe 'source ' . s:path
 endfor
-
