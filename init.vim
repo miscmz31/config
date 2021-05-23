@@ -2,7 +2,7 @@ syntax on
 
 call plug#begin('~/.vim/plugged')
 Plug 'neoclide/mycomment.vim'
-Plug 'lambdalisue/gina.vim'
+Plug 'tpope/vim-fugitive'
 Plug 'tommcdo/vim-lion'
 Plug 'ryanoasis/vim-devicons'
 "Plug 'tpope/vim-surround'
