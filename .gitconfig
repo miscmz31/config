@@ -1,0 +1,26 @@
+[core]
+    excludesFile = ~/.gitignore
+    editor = nvim
+[user]
+    name = miscmz31
+    email = 10396300+miscmz31@users.noreply.github.com
+[push]
+    default = simple
+[alias]
+    co = checkout
+    ci = commit
+    br = branch
+    st = status
+[merge]
+    tool = nvim
+[mergetool]
+    prompt = true
+[mergetool "nvim"]
+    cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
+[difftool]
+    prompt = true
+[diff]
+    tool = nvimdiff
+[difftool "nvimdiff"]
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+
