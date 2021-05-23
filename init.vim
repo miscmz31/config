@@ -44,7 +44,7 @@ set softtabstop=4
 set smarttab
 set autoindent
 set smartindent
-autocmd FileType javascript,js,ts,json setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType js,ts,json setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType c,cpp,h,hpp setlocal expandtab shiftwidth=2 softtabstop=2
 
 set hlsearch
@@ -168,10 +168,10 @@ let g:NERDTrimTrailingWhitespace = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configuration for vim-go
-autocmd FileType go nmap <leader>gb <Plug>(go-build)
-autocmd FileType go nmap <leader>gr <Plug>(go-run)
-autocmd FileType go nmap <leader>gt <Plug>(go-test)
-autocmd FileType go nmap <Leader>gi <Plug>(go-info)
+"autocmd FileType go nmap <leader>gb <Plug>(go-build)
+"autocmd FileType go nmap <leader>gr <Plug>(go-run)
+"autocmd FileType go nmap <leader>gt <Plug>(go-test)
+"autocmd FileType go nmap <Leader>gi <Plug>(go-info)
 " use quickfix everywhere and disable location list
 " let g:go_list_type = "quickfix"
 " use imports to auto config the missing imports
@@ -192,6 +192,15 @@ let g:go_metalinter_autosave = 1
 let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck']
 let g:go_def_mapping_enabled = 0
 
+let g:go_debug_preserve_layout = 1
+let g:go_debug_breakpoint_sign_text = '*'
+let g:go_debug_log_output = ''
+let g:go_debug_windows = {
+        \ 'vars':       'leftabove 80vnew',
+        \ 'stack':      'leftabove 20new',
+        \ 'goroutines': 'botright 10new',
+        \ 'out':        'botright 5new',
+\ }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LeaderF configuration
