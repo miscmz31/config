@@ -1,14 +1,13 @@
 syntax on
 
 call plug#begin('~/.vim/plugged')
+Plug 'sainnhe/gruvbox-material'
 Plug 'neoclide/mycomment.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'mechatroner/rainbow_csv'
 Plug 'tommcdo/vim-lion'
-Plug 'ryanoasis/vim-devicons'
-"Plug 'tpope/vim-surround'
 Plug 'easymotion/vim-easymotion'
 Plug 'Yggdroot/indentLine'
-Plug 'morhetz/gruvbox'
 Plug 'Yggdroot/LeaderF'
 Plug 'troydm/zoomwintab.vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
@@ -28,11 +27,9 @@ filetype plugin on
 "endif
 "set termguicolors
 
-colorscheme gruvbox
-" let g:gruvbox_italic=1
-" let g:gruvbox_italicize_strings=1
-" let g:gruvbox_improved_strings=1
-let g:gruvbox_contrast_dark="hard"
+let g:gruvbox_material_background = 'hard'
+let g:gruvbox_material_enable_italic = 1
+colorscheme gruvbox-material
 set background=dark
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
