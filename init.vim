@@ -1,38 +1,38 @@
-syntax on
-
 call plug#begin('~/.vim/plugged')
 Plug 'sainnhe/gruvbox-material'
 Plug 'neoclide/mycomment.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'mechatroner/rainbow_csv'
 Plug 'tommcdo/vim-lion'
-Plug 'easymotion/vim-easymotion'
 Plug 'Yggdroot/indentLine'
 Plug 'Yggdroot/LeaderF'
 Plug 'troydm/zoomwintab.vim'
 Plug 'ojroques/vim-oscyank'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
+"Plug 'IngoMeyer441/coc_current_word'
+"Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+"Plug 'easymotion/vim-easymotion'
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+syntax on
 filetype plugin indent on
 filetype plugin on
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" terminal color settings
-"if &term =~ '256color'
-"set t_ut=
+" Color settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "set t_Co=256
-"endif
 "set termguicolors
-
 let g:gruvbox_material_background = 'hard'
 let g:gruvbox_material_enable_italic = 1
 colorscheme gruvbox-material
-set background=dark
+"hi CocHighlightText ctermfg=0 ctermbg=11 guifg=Black guibg=Yellow
+hi CocHighlightText ctermfg=234 ctermbg=142 guifg=#1d2021 guibg=#a9b665
+"set background=dark
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Basic settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set backspace=2
 set mouse=a
@@ -42,7 +42,7 @@ set softtabstop=4
 set smarttab
 set autoindent
 set smartindent
-autocmd FileType js,ts,json setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType js,ts setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType c,cpp,h,hpp setlocal expandtab shiftwidth=2 softtabstop=2
 
 set hlsearch
@@ -51,7 +51,7 @@ set ruler
 set ignorecase
 set smartcase
 set autoread
-
+"set foldmethod=syntax
 set nowrap
 set colorcolumn=100
 
@@ -86,6 +86,7 @@ set clipboard+=unnamedplus
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Leader key shortcuts
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader = ","
 nnoremap <leader>w :w<CR>
 nnoremap <leader><leader>q :q<CR>
@@ -114,16 +115,19 @@ command! -nargs=* VT vsplit | terminal <args>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Search mappings: These will make it so that going to the next one in a
 " search will center on the line it's found in.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap Y y$
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enter automatically into the files directory
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd BufEnter * silent! lcd %:p:h
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable highlight for self in python
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup python
     autocmd!
     autocmd FileType python
@@ -133,8 +137,9 @@ augroup end
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " mark out tailing white spaces
-match ErrorMsg '\s\+$'
 " Removes trailing spaces
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+match ErrorMsg '\s\+$'
 function! TrimWhiteSpace()
     %s/\s\+$//e
 endfunction
@@ -144,10 +149,9 @@ autocmd FileAppendPre   * :call TrimWhiteSpace()
 autocmd FilterWritePre  * :call TrimWhiteSpace()
 autocmd BufWritePre     * :call TrimWhiteSpace()
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configuration for nerdcommenter
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
 " Use compact syntax for prettified multi-line comments
@@ -166,6 +170,7 @@ let g:NERDTrimTrailingWhitespace = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configuration for vim-go
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "autocmd FileType go nmap <leader>gb <Plug>(go-build)
 "autocmd FileType go nmap <leader>gr <Plug>(go-run)
 "autocmd FileType go nmap <leader>gt <Plug>(go-test)
@@ -173,36 +178,36 @@ let g:NERDTrimTrailingWhitespace = 1
 " use quickfix everywhere and disable location list
 " let g:go_list_type = "quickfix"
 " use imports to auto config the missing imports
-let g:go_fmt_command = "goimports"
-let g:go_autodetect_gopath = 1
-" let g:go_fmt_fail_silently = 1
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
-" let g:go_highlight_operators = 1
-let g:go_highlight_generate_tags = 1
-let g:go_highlight_extra_types = 1
-let g:go_auto_type_info = 1
-let g:go_auto_sameids = 1
-
-let g:go_metalinter_autosave = 1
-let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck']
-let g:go_def_mapping_enabled = 0
-
-let g:go_debug_preserve_layout = 1
-let g:go_debug_breakpoint_sign_text = '*'
-let g:go_debug_log_output = ''
-let g:go_debug_windows = {
-        \ 'vars':       'leftabove 80vnew',
-        \ 'stack':      'leftabove 20new',
-        \ 'goroutines': 'botright 10new',
-        \ 'out':        'botright 5new',
-\ }
+"let g:go_fmt_command = "goimports"
+"let g:go_autodetect_gopath = 1
+"" let g:go_fmt_fail_silently = 1
+"let g:go_highlight_types = 1
+"let g:go_highlight_fields = 1
+"let g:go_highlight_functions = 1
+"let g:go_highlight_function_calls = 1
+"" let g:go_highlight_operators = 1
+"let g:go_highlight_generate_tags = 1
+"let g:go_highlight_extra_types = 1
+"let g:go_auto_type_info = 1
+"let g:go_auto_sameids = 1
+"
+"let g:go_metalinter_autosave = 1
+"let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck']
+"let g:go_def_mapping_enabled = 0
+"
+"let g:go_debug_preserve_layout = 1
+"let g:go_debug_breakpoint_sign_text = '*'
+"let g:go_debug_log_output = ''
+"let g:go_debug_windows = {
+"        \ 'vars':       'leftabove 80vnew',
+"        \ 'stack':      'leftabove 20new',
+"        \ 'goroutines': 'botright 10new',
+"        \ 'out':        'botright 5new',
+"\ }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LeaderF configuration
-" don't show the help in normal mode
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:Lf_HideHelp = 1
 let g:Lf_UseCache = 0
 let g:Lf_UseVersionControlTool = 0
@@ -210,7 +215,7 @@ let g:Lf_IgnoreCurrentBufferName = 1
 " popup mode
 let g:Lf_WindowPosition = 'popup'
 let g:Lf_PreviewInPopup = 1
-let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
+"let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
 let g:Lf_PreviewResult = {'Function': 1, 'BufTag': 1 }
 
 let g:Lf_ShortcutF = "<C-P>"
@@ -246,6 +251,7 @@ let g:Lf_PopupPalette = {
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " easy motion configuration
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "map <Leader> <Plug>(easymotion-prefix)
 "map  <leader><leader>s <Plug>(easymotion-sn)
 "omap <leader><leader>s <Plug>(easymotion-tn)
@@ -256,15 +262,17 @@ let g:Lf_PopupPalette = {
 "map  F <Plug>(easymotion-prev)
 "map  <Leader>f <Plug>(easymotion-bd-f)
 "nmap <Leader>f <Plug>(easymotion-overwin-f)
-map  <leader><leader>w <Plug>(easymotion-bd-w)
-nmap <Leader><leader>w <Plug>(easymotion-overwin-w)
+
+"map  <leader><leader>w <Plug>(easymotion-bd-w)
+"nmap <Leader><leader>w <Plug>(easymotion-overwin-w)
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" COC settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:coc_global_extensions = [
-      \'coc-markdownlint',
-      \'coc-highlight',
       \'coc-go',
+      \'coc-highlight',
       \'coc-pyright',
       \'coc-explorer',
       \'coc-yank',
@@ -276,6 +284,7 @@ let g:coc_global_extensions = [
       \'coc-cmake',
       \'coc-lists',
       \'coc-pairs',
+      \'coc-sh',
       \]
 " Recommended config for COC
 " if hidden is not set, TextEdit might fail.
@@ -381,7 +390,7 @@ let g:lightline = {
 
 " for indentLine
 let g:indentLine_fileTypeExclude = ['coc-explorer']
-nmap <silent><space>o :<C-u>CocCommand explorer<CR>
+nmap <silent><leader>e :<C-u>CocCommand explorer<CR>
 
 " Show all diagnostics
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
@@ -390,7 +399,7 @@ nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 " Show commands
 nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document
-"nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols
 nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
@@ -402,15 +411,18 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " Show cocList
 nnoremap <silent> <space>l  :<C-u>CocList<CR>
 
+"autocmd CursorHold * silent call CocActionAsync('highlight')
+"autocmd ColorScheme * highlight CocHighlightText ctermbg=243 guibg=#005d4e
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-lion
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:lion_squeeze_spaces = 1
 let g:lion_create_maps = 1
 
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " add surrounding
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap <leader>' ysiw'
 nmap <leader>" ysiw"
 
@@ -420,5 +432,3 @@ for s:path in split(glob('~/.vim/vimrc/*.vim'), "\n")
 endfor
 
 autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif
-
-
