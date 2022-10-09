@@ -22,7 +22,6 @@ filetype plugin on
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Color settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"set t_Co=256
 "set termguicolors
 let g:gruvbox_material_background = 'hard'
 let g:gruvbox_material_enable_italic = 1
