@@ -1,19 +1,6 @@
 {
     "coc.preferences.extensionUpdateCheck": "weekly",
-    "colors.filetypes": [
-        "*"
-    ],
     "coc.preferences.formatOnType": true,
-    "coc.preferences.formatOnSaveFiletypes": [
-        "go",
-        "python",
-        "json",
-        "xml",
-        "c",
-        "cpp",
-        "h",
-        "hpp"
-    ],
     "coc.source.file.ignoreHidden": false,
     "git.addGBlameToVirtualText": true,
     "git.semanticCommit.scope": true,
