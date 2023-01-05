@@ -1,16 +1,23 @@
 call plug#begin('~/.vim/plugged')
 Plug 'sainnhe/gruvbox-material'
 Plug 'neoclide/mycomment.vim'
+" Git enhancement
 Plug 'tpope/vim-fugitive'
+" formatting and prettier
 Plug 'mechatroner/rainbow_csv'
 Plug 'tommcdo/vim-lion'
 Plug 'Yggdroot/indentLine'
+" others
 Plug 'Yggdroot/LeaderF'
 Plug 'troydm/zoomwintab.vim'
 Plug 'ojroques/vim-oscyank'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 "Plug 'easymotion/vim-easymotion'
+" tab and status line
+Plug 'nvim-lualine/lualine.nvim'
+" If you want to have icons in your statusline choose one of these
+Plug 'kyazdani42/nvim-web-devicons'
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -35,6 +42,7 @@ hi CocHighlightText ctermfg=234 ctermbg=142 guifg=#1d2021 guibg=#a9b665
 set backspace=2
 
 set mouse=a
+set cmdheight=1
 set expandtab
 set shiftwidth=4
 set softtabstop=4
@@ -277,7 +285,6 @@ let g:coc_global_extensions = [
       \'coc-git',
       \'coc-yank',
       \'coc-pyright',
-      \'coc-yaml',
       \'coc-xml',
       \'coc-json',
       \'coc-cmake',
@@ -435,7 +442,7 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 let g:indentLine_fileTypeExclude = ['coc-explorer']
-nmap <silent><leader>e :<Cmd>CocCommand explorer<CR>
+nmap <silent><leader>e :CocCommand explorer<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-lion
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -449,8 +456,60 @@ nmap <leader>' ysiw'
 nmap <leader>" ysiw"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-for s:path in split(glob('~/.vim/vimrc/*.vim'), "\n")
-  exe 'source ' . s:path
-endfor
+"for s:path in split(glob('~/.vim/vimrc/*.vim'), "\n")
+"  exe 'source ' . s:path
+"endfor
 
 autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" settings for neovide
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set guifont=UbuntuMono\ Nerd\ Font\ Mono:h16
+let g:neovide_remember_window_size = v:true
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" settings tab and status lines
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+lua << END
+require('lualine').setup{
+    options = { theme = 'auto' },
+    sections = {
+        lualine_a = {'mode'},
+        lualine_b = {
+            'branch',
+            'diff',
+            {
+                'diagnostics',
+                sources = {'coc'}
+            }
+        },
+        lualine_c = {
+            {'filename', path = 1},
+            {'b:coc_current_function'},
+            {'g:coc_status'},
+            },
+        lualine_x = {
+            'encoding',
+            'fileformat',
+            'filetype',
+        },
+        lualine_y = {'progress'},
+        lualine_z = {'location'}
+    },
+    tabline = {
+        lualine_a = {{'tabs', mode = 2}},
+        lualine_b = {},
+        lualine_c = {},
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = {
+            {
+                'buffers',
+                icons_enabled = false
+            }
+        }
+    },
+    extensions = {'fugitive'}
+}
+END
