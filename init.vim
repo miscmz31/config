@@ -16,7 +16,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'easymotion/vim-easymotion'
 " tab and status line
 Plug 'nvim-lualine/lualine.nvim'
-" If you want to have icons in your statusline choose one of these
 Plug 'kyazdani42/nvim-web-devicons'
 call plug#end()
 
@@ -130,7 +129,7 @@ nnoremap Y y$
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enter automatically into the files directory
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd BufEnter * silent! lcd %:p:h
+"autocmd BufEnter * silent! lcd %:p:h
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable highlight for self in python
@@ -141,6 +140,8 @@ augroup python
                 \   syn keyword pythonSelf self
                 \ | highlight def link pythonSelf Number
 augroup end
+
+highlight MatchParen ctermfg=234 ctermbg=214 guifg=#1d2021 guibg=#d8a657
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " mark out tailing white spaces
@@ -283,11 +284,9 @@ let g:coc_global_extensions = [
       \'coc-lists',
       \'coc-pairs',
       \'coc-git',
-      \'coc-yank',
       \'coc-pyright',
       \'coc-xml',
       \'coc-json',
-      \'coc-cmake',
       \'coc-sh',
       \]
 " Recommended config for COC
