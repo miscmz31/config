@@ -1,6 +1,6 @@
 call plug#begin('~/.vim/plugged')
 Plug 'sainnhe/gruvbox-material'
-Plug 'neoclide/mycomment.vim'
+Plug 'preservim/nerdcommenter'
 " Git enhancement
 Plug 'tpope/vim-fugitive'
 " formatting and prettier
@@ -160,6 +160,8 @@ autocmd BufWritePre     * :call TrimWhiteSpace()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configuration for nerdcommenter
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Create default mappings
+let g:NERDCreateDefaultMappings = 1
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
 " Use compact syntax for prettified multi-line comments
@@ -174,6 +176,8 @@ let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
 let g:NERDCommentEmptyLines = 1
 " Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
+" Enable NERDCommenterToggle to check all selected lines is commented or not
+let g:NERDToggleCheckAllLines = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -285,7 +289,6 @@ let g:coc_global_extensions = [
       \'coc-pairs',
       \'coc-git',
       \'coc-pyright',
-      \'coc-xml',
       \'coc-json',
       \'coc-sh',
       \]
@@ -426,7 +429,7 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " Show all diagnostics.
 nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions.
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+"nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
 " Show commands.
 nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document.
@@ -441,7 +444,7 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 let g:indentLine_fileTypeExclude = ['coc-explorer']
-nmap <silent><leader>e :CocCommand explorer<CR>
+nnoremap <silent><nowait> <space>e :<C-u>CocCommand explorer<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-lion
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -472,7 +475,11 @@ let g:neovide_remember_window_size = v:true
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 lua << END
 require('lualine').setup{
-    options = { theme = 'auto' },
+    options = {
+        theme = 'auto',
+        component_separators = { left = '|', right = '|'},
+        section_separators = { left = '', right = ''}
+        },
     sections = {
         lualine_a = {'mode'},
         lualine_b = {
@@ -491,7 +498,7 @@ require('lualine').setup{
         lualine_x = {
             'encoding',
             'fileformat',
-            'filetype',
+            {'filetype', icons_enabled = false},
         },
         lualine_y = {'progress'},
         lualine_z = {'location'}
