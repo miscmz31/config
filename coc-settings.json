@@ -1,8 +1,8 @@
 {
-    "coc.preferences.extensionUpdateCheck": "weekly",
-    "coc.preferences.formatOnType": true,
+    "coc.preferences.extensionUpdateCheck": "daily",
+    "coc.preferences.formatOnType": false,
     "coc.source.file.ignoreHidden": false,
-    "git.addGBlameToVirtualText": true,
+    // "git.addGBlameToVirtualText": true,
     "git.semanticCommit.scope": true,
     "signature.target": "echo",
     "diagnostic.virtualText": true,
@@ -10,7 +10,7 @@
     "diagnostic.separateRelatedInformationAsDiagnostics": true,
     "suggest.timeout": 5000,
     "python.formatting.provider": "yapf",
-    "python.formatting.yapfPath": "/opt/homebrew/bin/yapf",
-    "explorer.icon.enableNerdfont": true,
+    // "python.formatting.yapfPath": "/opt/homebrew/bin/yapf",
+    "python.pythonPath": "python3",
     "coc.preferences.currentFunctionSymbolAutoUpdate": true
 }
