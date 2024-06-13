@@ -133,7 +133,7 @@ nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 nnoremap <C-w>i <C-w>v
 
-command! -nargs=* T split | terminal <args>
+command! -nargs=* XT split | terminal <args>
 command! -nargs=* VT vsplit | terminal <args>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -426,7 +426,7 @@ local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-vim.keymap.set('n', '<leader>fs', builtin.lsp_dynamic_workspace_symbols, {})
+vim.keymap.set('n', '<leader>ft', builtin.treesitter, {})
 -- vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 require('telescope').load_extension('fzf')
 
@@ -550,5 +550,7 @@ require("aerial").setup({
 })
 -- You probably also want to set a keymap to toggle aerial
 vim.keymap.set("n", "<leader>o", "<cmd>AerialToggle!<CR>")
+
+require("telescope").load_extension("aerial")
 
 END
