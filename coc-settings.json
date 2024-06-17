@@ -3,14 +3,29 @@
     "coc.preferences.formatOnType": false,
     "coc.source.file.ignoreHidden": false,
     // "git.addGBlameToVirtualText": true,
-    "git.semanticCommit.scope": true,
     "signature.target": "echo",
     "diagnostic.virtualText": true,
     "diagnostic.checkCurrentLine": true,
     "diagnostic.separateRelatedInformationAsDiagnostics": true,
     "suggest.timeout": 5000,
     "python.formatting.provider": "yapf",
-    // "python.formatting.yapfPath": "/opt/homebrew/bin/yapf",
     "python.pythonPath": "python3",
-    "coc.preferences.currentFunctionSymbolAutoUpdate": true
+    "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+
+    "languageserver": {
+      "clangd": {
+        "command": "clangd",
+        "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
+        "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
+      },
+      "bash": {
+        "command": "bash-language-server",
+        "args": ["start"],
+        "filetypes": ["sh"]
+      },
+      "lua": {
+        "command": "lua-lsp",
+        "filetypes": ["lua"]
+      }
+    }
 }
