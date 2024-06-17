@@ -1,15 +1,15 @@
 call plug#begin('~/.vim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Theme and fonts
-" Plug 'sainnhe/gruvbox-material'
+Plug 'sainnhe/gruvbox-material'
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'kyazdani42/nvim-web-devicons'
+" Explorer
 Plug 'nvim-tree/nvim-tree.lua'
-Plug 'stevearc/aerial.nvim'
-Plug 'romgrk/barbar.nvim'
+" Sidebar
+Plug 'liuchengxu/vista.vim'
 " Commenter
 Plug 'preservim/nerdcommenter'
-Plug 'tpope/vim-surround'
 " Syntax highlights
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " Tag fuzzy finder
@@ -17,16 +17,21 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 " Git
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 " formatting and prettier
 Plug 'mechatroner/rainbow_csv'
-Plug 'Yggdroot/indentLine'
+Plug 'lukas-reineke/indent-blankline.nvim'
 " others
+Plug 'tpope/vim-surround'
 Plug 'troydm/zoomwintab.vim'
+Plug 'jdhao/better-escape.vim'
 Plug 'ojroques/vim-oscyank', {'branch': 'main'}
-" tab and status line
+Plug 'folke/which-key.nvim'
+Plug 'windwp/nvim-autopairs'
+
+" status line
 Plug 'nvim-lualine/lualine.nvim'
-" Plug 'dstein64/vim-startuptime'
+Plug 'dstein64/vim-startuptime'
 
 call plug#end()
 
@@ -224,7 +229,6 @@ let g:NERDToggleCheckAllLines = 1
 let g:coc_global_extensions = [
       \'coc-highlight',
       \'coc-lists',
-      \'coc-pairs',
       \'coc-git',
       \'coc-pyright',
       \'coc-xml',
@@ -396,9 +400,19 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 
-let g:indentLine_fileTypeExclude = ['coc-explorer']
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" misc
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap <silent><leader>e :NvimTreeToggle <CR>
 
+let g:vista_default_executive = 'coc'
+nmap <silent><leader>o :Vista!!<CR>
+
+" use jj to escape insert mode.
+let g:better_escape_shortcut = 'jj'
+
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() :
+	\ "\<CMD>call feedkeys(v:lua.require('nvim-autopairs').autopairs_cr(), 'in')\<CR>"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " add surrounding
@@ -440,13 +454,13 @@ options = { theme = 'catppuccin' },
             'diff',
             {
                 'diagnostics',
-                sources = {'coc'}
+                sources = {'coc'},
             }
         },
         lualine_c = {
-            {'filename', path = 1},
-            {'b:coc_current_function'},
-            {'g:coc_status'},
+            'filename',
+            'b:coc_current_function',
+            'g:coc_status',
             },
         lualine_x = {
             'encoding',
@@ -469,7 +483,7 @@ options = { theme = 'catppuccin' },
             }
         }
     },
-    extensions = {'fugitive'}
+    extensions = {'fugitive', 'nvim-tree', 'fzf'}
 }
 
 ---- Treesitter configurations
@@ -540,17 +554,11 @@ require("catppuccin").setup({
     },
 })
 
-require("aerial").setup({
-  -- optionally use on_attach to set keymaps when aerial has attached to a buffer
-  on_attach = function(bufnr)
-    -- Jump forwards/backwards with '{' and '}'
-    vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
-    vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
-  end,
-})
--- You probably also want to set a keymap to toggle aerial
-vim.keymap.set("n", "<leader>o", "<cmd>AerialToggle!<CR>")
+vim.o.timeout = true
+vim.o.timeoutlen = 500
 
-require("telescope").load_extension("aerial")
+require("which-key").setup()
+require("ibl").setup()
+require("nvim-autopairs").setup()
 
 END
