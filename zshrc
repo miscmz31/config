@@ -70,7 +70,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git direnv)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -108,7 +108,6 @@ fi
 alias ls="ls --color"
 alias ll="ls -lh"
 alias l="ls -lah"
-alias vimdiff='nvim -d'
 alias lg="lazygit"
 
 SSH_ENV="$HOME/.ssh/environment"
@@ -134,6 +133,17 @@ else
         start_agent;
 fi
 
-#set -o ignoreeof
-export FPP_EDITOR="nvim"
-export EDITOR=nvim
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+eval "$(direnv hook zsh)"
+
+export PATH=/Users/mz/.local/bin:$PATH
+
+export FPP_EDITOR="lvim"
+export EDITOR=lvim
+alias nvim=lvim
+alias vimdiff='lvim -d'
+
