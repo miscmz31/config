@@ -15,10 +15,67 @@ vim.g.python3_host_prog = 'python3'
 
 -- Plugins
 lvim.plugins = {
+    -- {
+    --     "catppuccin/nvim",
+    --     name = "catppuccin",
+    --     lazy = false,
+    --     priority = 1000,
+    --     config = function()
+    --         require("catppuccin").setup({
+    --             styles = {
+    --                 -- functions = { "bold" },
+    --                 keywords = { "italic" },
+    --                 types = { "bold" },
+    --                 loops = { "italic" },
+    --                 -- strings = { "italic" },
+    --                 -- variables = { "bold" },
+    --             }
+    --         })
+    --     end
+    -- },
     {
-        "catppuccin/nvim",
-        name = "catppuccin",
+        'projekt0n/github-nvim-theme',
+        name = 'github-theme',
+        lazy = false,    -- make sure we load this during startup if it is your main colorscheme
+        priority = 1000, -- make sure to load this before all the other start plugins
+        config = function()
+            require('github-theme').setup({
+                options = {
+                    -- dim_inactive = true,
+                    styles = {
+                        comments = 'italic',
+                        functions = 'bold',
+                        keywords = 'italic',
+                        -- variables = 'NONE',
+                        conditionals = 'italic',
+                        constants = 'bold',
+                        -- numbers = 'NONE',
+                        -- operators = 'NONE',
+                        -- strings = 'NONE',
+                        types = 'bold',
+                        -- loops = "italic",
+                    },
+                },
+                specs = {
+                    all = {
+                        syntax = {
+                            string = 'green',
+                            -- field = 'magenta',
+                        },
+                    },
+                }
+            })
+        end,
     },
+    -- {
+    --     'sainnhe/gruvbox-material',
+    --     -- lazy = false,
+    --     -- priority = 1000,
+    --     config = function()
+    --         -- Optionally configure and load the colorscheme
+    --         -- directly inside the plugin declaration.
+    --     end
+    -- },
     {
         "folke/todo-comments.nvim",
         event = "BufRead",
@@ -89,7 +146,16 @@ lvim.plugins = {
 
 
 -- Customizations
-lvim.colorscheme = "catppuccin-macchiato"
+-- lvim.colorscheme = "catppuccin-macchiato"
+-- lvim.colorscheme = "catppuccin-latte"
+lvim.colorscheme = "github_light"
+
+-- vim.g.gruvbox_material_background = 'medium'
+-- vim.g.grubbox_material_foreground = 'material'
+-- vim.g.gruvbox_material_enable_italic = true
+-- vim.g.gruvbox_material_enable_bold = true
+-- lvim.colorscheme = "gruvbox-material"
+
 lvim.format_on_save.enabled = true
 lvim.format_on_save.pattern = { "*.lua", "*.py" }
 
@@ -188,6 +254,7 @@ lvim.builtin.which_key.mappings["f"] = {
 }
 
 lvim.builtin.which_key.mappings["l"] = {
+    name = "LSP",
     a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
     d = { "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>", "Buffer Diagnostics" },
     e = { "<cmd>Telescope quickfix<cr>", "Telescope Quickfix" },
